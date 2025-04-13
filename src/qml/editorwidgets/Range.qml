@@ -34,7 +34,7 @@ EditorWidgetBase {
       font: Theme.defaultFont
       color: value === undefined || !enabled ? Theme.mainTextDisabledColor : Theme.mainTextColor
 
-      text: value !== undefined ? value : ''
+      text: value !== undefined ? displayValue(value, precision) : ''
 
       validator: {
         if (LayerUtils.fieldType(field) === 'double') {
@@ -177,6 +177,17 @@ EditorWidgetBase {
     }
   }
 
+  function displayValue(value, precision) {
+    console.log(value);
+    var usePrecision;
+    if (LayerUtils.fieldType(field) !== 'double') {
+      usePrecision = 0;
+    } else {
+      usePrecision = precision;
+    }
+    return Number(value).toFixed(usePrecision).toLocaleString();
+  }
+
   Row {
     id: sliderRow
     anchors.left: parent.left
@@ -190,7 +201,7 @@ EditorWidgetBase {
       width: sliderRow.width / 4
       height: fontMetrics.height + 20
       elide: Text.ElideRight
-      text: value !== undefined && value != '' ? Number(slider.value).toFixed(rangeItem.precision).toLocaleString() + rangeItem.suffix : ''
+      text: value !== undefined && value != '' ? displayValue(slider.value, rangeItem.precision) + rangeItem.suffix : ''
       verticalAlignment: Text.AlignVCenter
       horizontalAlignment: Text.AlignLeft
       font: Theme.defaultFont

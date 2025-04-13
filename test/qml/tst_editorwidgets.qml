@@ -154,7 +154,7 @@ TestCase {
 
     // Row
     // compare(sliderRow.visible, true) // ERROR ? should work but not working!
-    compare(textField.text, "3");
+    compare(textField.text, "3.0");
     range.config = {
       "Style": "Slider",
       "Precision": 2,
